@@ -10,7 +10,6 @@ export default function SearchBar(props) {
     const [showSearchResult, setShowSearchResult] = useState(false);
 
     const onSelectEdu = (edu) => {
-        setSelectedSubject('');
         setSelectedEduLevel(edu);
         setShowEduLevel(false);
         setSelectedSubjects(edu === '高中職科目' ? subjects['高中職'] : (edu === '國中科目' ? subjects['國中'] : (edu === '不分學段' ? [] : subjects[edu])));
@@ -63,7 +62,7 @@ export default function SearchBar(props) {
             <div className="Search_Bar">
                 <div className="Search_Bar_item">
                     <ul className="search-navtabs">
-                        <li onClick={() => { setShowEduLevel(!showEduLevel); setShowSubjects(false); setShowCounties(false); setShowSearchResult(false) }}><i className="icon-search-01"></i><span>{!!selectedEduLevel ? selectedEduLevel : '學習階段'}</span></li>
+                        <li onClick={() => { setShowEduLevel(!showEduLevel); setShowSubjects(false); setShowCounties(false); setShowSearchResult(false); setSelectedSubject(''); setSelectedCounty(''); }}><i className="icon-search-01"></i><span>{!!selectedEduLevel ? selectedEduLevel : '學習階段'}</span></li>
                         <li onClick={() => { setShowEduLevel(false); setShowSubjects(!showSubjects); setShowCounties(false); setShowSearchResult(false) }}><i className="icon-search-02"></i><span>{!!selectedSubject ? selectedSubject : '學習科目'}</span></li>
                         <li onClick={() => { setShowEduLevel(false); setShowSubjects(false); setShowCounties(!showCounties); setShowSearchResult(false) }}><i className="icon-search-03"></i><span>{!!selectedCounty ? selectedCounty : '學習地區'}</span></li>
                     </ul>

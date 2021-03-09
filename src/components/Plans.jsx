@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom';
 
 export default function Plans(props) {
     const { filteredPlans, currentPage, showPerPage } = props;
-
     return (
         <React.Fragment>
             <section>
                 <div className="ytdwrap">
                     {filteredPlans.slice((currentPage - 1) * showPerPage, currentPage * showPerPage).map((plan, index) => (
                         <div className="clearfix info_item" key={plan.youtubeLink}>
-                            <Link to={`plan/${plan.id}`}>
+                            <Link to={`plan/${plan.id}`} onClick={() => { window.scrollTo(0, 0) }}>
                                 {/* <a href="casestudies.html"> */}
                                 <div className={`medal icon_${plan.badge}`}></div>
                                 <div className="video-shadow">

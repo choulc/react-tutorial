@@ -31,12 +31,18 @@ function App() {
   const [selectedKeyword, setSelectedKeyword] = useState('');
   const [searchResult, setSearchResult] = useState({ selectedEduLevel, selectedSubject, selectedCounty, selectedKeyword });
 
+  const [planLookupTable, setPlanLookupTable] = useState({});
+
   useEffect(() => {
     const getPlans = async () => {
       const result = await axios.get('/lesson-plans.json');
       setPlanItems(result.data);
       setFilteredPlans(result.data);
       setMaxPage(Math.ceil(result.data.length / showPerPage));
+
+      const tempLookupTable = {};
+      result.data.forEach(plan => { tempLookupTable[plan.id] = plan });
+      setPlanLookupTable(tempLookupTable);
     }
 
     const getEdu = async () => {
@@ -93,7 +99,9 @@ function App() {
           />
         </Route>
         <Route path="/plan/:planId">
-          <DetailPage />
+          <DetailPage
+            planLookupTable={planLookupTable}
+          />
         </Route>
       </Switch>
     </Router>

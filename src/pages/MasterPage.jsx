@@ -51,7 +51,7 @@ export default function MasterPage(props) {
                 </section>
                 <Footer />
             </section>
-            <div className="topup"></div>
+            <div className="topup" onClick={() => { window.scrollTo(0, 0) }}></div>
         </React.Fragment>
     )
 }
