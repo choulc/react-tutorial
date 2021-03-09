@@ -6,7 +6,8 @@ import Pagination from '../components/Pagination';
 import Plans from '../components/Plans';
 import SearchBar from '../components/SearchBar';
 
-export default function MasterPage() {
+export default function MasterPage(props) {
+    const { filteredPlan, currentPage, setCurrentPage, maxPage, setMaxPage, showPerPage } = props;
     return (
         <React.Fragment>
             <section class="wrapper">
@@ -14,8 +15,16 @@ export default function MasterPage() {
                 <KeyVisual />
                 <section class="cw-main">
                     <SearchBar />
-                    <Plans />
-                    <Pagination />
+                    <Plans
+                        filteredPlan={filteredPlan}
+                        currentPage={currentPage}
+                        showPerPage={showPerPage}
+                    />
+                    <Pagination
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
+                        maxPage={maxPage}
+                    />
                 </section>
                 <Footer />
             </section>

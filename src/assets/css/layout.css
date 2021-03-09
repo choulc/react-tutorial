@@ -254,6 +254,32 @@ ul.search-navtabs li i.icon-search-03 {
     background-size: 100% 100%;
 }
 
+.medal.icon_B {
+    background: url(../images/icon_medal_01.svg)no-repeat center top;
+    background-size: 100% 100%;
+
+}
+
+.medal.icon_C {
+    background: url(../images/icon_medal_02.svg)no-repeat center top;
+    background-size: 100% 100%;
+}
+
+.medal.icon_D {
+    background: url(../images/icon_medal_03.svg)no-repeat center top;
+    background-size: 100% 100%;
+}
+
+.medal.icon_E {
+    background: url(../images/icon_medal_04.svg)no-repeat center top;
+    background-size: 100% 100%;
+}
+
+.medal.icon_A {
+    background: url(../images/icon_medal_05.svg)no-repeat center top;
+    background-size: 100% 100%;
+}
+
 .textContent {
     width: 95%;
     background-color: #fff;
