@@ -15,7 +15,7 @@ export default function SearchBar() {
                         <button type="submit">搜 尋</button>
                     </div>
                     <div class="search_datawrap">
-                        <div class="search_info" >
+                        <div class="search_info" style={{ display: 'none' }}>
                             <p>無關聯教案，請重新搜尋！</p>
                         </div>
                         <div class="search_info" style={{ display: 'none' }}>

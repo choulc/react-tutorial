@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Plans() {
     return (
@@ -6,7 +7,8 @@ export default function Plans() {
             <section>
                 <div class="ytdwrap">
                     <div class="clearfix info_item">
-                        <a href="casestudies.html">
+                        <Link to="plan/5">
+                            {/* <a href="casestudies.html"> */}
                             <div class="medal icon_01"></div>
                             <div class="video-shadow">
                                 <iframe
@@ -24,7 +26,8 @@ export default function Plans() {
                                 <h3>漁味無窮-高雄旗津鹽埕漁村跨校移動挑戰</h3>
                                 <p>科目：社會,綜合活動,科技社會,綜合活動,科技社會,綜合活動,科技</p>
                             </div>
-                        </a>
+                            {/* </a> */}
+                        </Link>
                     </div>
                     <div class="clearfix info_item">
                         <a href="casestudies.html">

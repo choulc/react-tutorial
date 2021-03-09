@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Header() {
+const DetailHeader = () => {
     return (
         <React.Fragment>
-            <header>
+            <header class="casestudies">
                 <Link to="/">
                     <div class="logo">
                         微笑台灣創意教案
@@ -13,5 +13,7 @@ export default function Header() {
                 </Link>
             </header>
         </React.Fragment>
-    )
+    );
 }
+
+export default DetailHeader;
