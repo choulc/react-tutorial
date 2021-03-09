@@ -1,50 +1,99 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-export default function SearchBar() {
+export default function SearchBar(props) {
+
+    const { planItems, filteredPlans, setFilteredPlans, setCurrentPage, eduLevel, subjects, counties, selectedEduLevel, setSelectedEduLevel, selectedSubjects, setSelectedSubjects, selectedSubject, setSelectedSubject, selectedCounty, setSelectedCounty, selectedKeyword, setSelectedKeyword, searchResult, setSearchResult } = props;
+
+    const [showEduLevel, setShowEduLevel] = useState(false);
+    const [showSubjects, setShowSubjects] = useState(false);
+    const [showCounties, setShowCounties] = useState(false);
+    const [showSearchResult, setShowSearchResult] = useState(false);
+
+    const onSelectEdu = (edu) => {
+        setSelectedSubject('');
+        setSelectedEduLevel(edu);
+        setShowEduLevel(false);
+        setSelectedSubjects(edu === '高中職科目' ? subjects['高中職'] : (edu === '國中科目' ? subjects['國中'] : (edu === '不分學段' ? [] : subjects[edu])));
+    }
+
+    const onSelectSubject = (subject) => {
+        setSelectedSubject(subject);
+        setShowSubjects(false);
+    }
+
+    const onSelectCounty = (county) => {
+        setSelectedCounty(county);
+        setShowCounties(false);
+    }
+
+    const onSearchClick = () => {
+        const tempPlans = [...planItems];
+        console.log(tempPlans
+            .filter(plan => plan.grade.includes(selectedEduLevel === '高中職科目' ? '高中職'
+                : (selectedEduLevel === '國中科目' ? '國中' : (selectedEduLevel === '不分學段' ? '' : selectedEduLevel))))
+            .filter(plan => plan.subject.includes((selectedSubject === '全部學科') ? '' : selectedSubject))
+            .filter(plan => plan.city.includes(selectedCounty === '離島' ? '連江縣' : selectedCounty)
+                || plan.city.includes(selectedCounty === '離島' ? '金門縣' : selectedCounty)
+                || plan.city.includes(selectedCounty === '離島' ? '澎湖縣' : selectedCounty)
+                || plan.city.includes(selectedCounty === '臺中市' ? '台中市' : selectedCounty)
+                || plan.city.includes(selectedCounty === '全台' ? '' : selectedCounty))
+            .filter(plan => Object.values(plan).join('').includes(selectedKeyword)))
+        setFilteredPlans(tempPlans
+            .filter(plan => plan.grade.includes(selectedEduLevel === '高中職科目' ? '高中職'
+                : (selectedEduLevel === '國中科目' ? '國中' : (selectedEduLevel === '不分學段' ? '' : selectedEduLevel))))
+            .filter(plan => plan.subject.includes((selectedSubject === '全部學科') ? '' : selectedSubject))
+            .filter(plan => plan.city.includes(selectedCounty === '離島' ? '連江縣' : selectedCounty)
+                || plan.city.includes(selectedCounty === '離島' ? '金門縣' : selectedCounty)
+                || plan.city.includes(selectedCounty === '離島' ? '澎湖縣' : selectedCounty)
+                || plan.city.includes(selectedCounty === '臺中市' ? '台中市' : selectedCounty)
+                || plan.city.includes(selectedCounty === '全台' ? '' : selectedCounty))
+            .filter(plan => Object.values(plan).join('').includes(selectedKeyword))
+        );
+        setCurrentPage(1);
+        setShowEduLevel(false);
+        setShowSubjects(false);
+        setShowCounties(false);
+        setShowSearchResult(true);
+        setSearchResult({ selectedEduLevel, selectedSubject, selectedCounty, selectedKeyword });
+    }
+
+
     return (
         <React.Fragment>
-            <div class="Search_Bar">
-                <div class="Search_Bar_item">
-                    <ul class="search-navtabs">
-                        <li><i class="icon-search-01"></i><span>國小高年級</span></li>
-                        <li><i class="icon-search-02"></i><span>健康與體育</span></li>
-                        <li><i class="icon-search-03"></i><span>學習地區</span></li>
+            <div className="Search_Bar">
+                <div className="Search_Bar_item">
+                    <ul className="search-navtabs">
+                        <li onClick={() => { setShowEduLevel(!showEduLevel); setShowSubjects(false); setShowCounties(false); setShowSearchResult(false) }}><i className="icon-search-01"></i><span>{!!selectedEduLevel ? selectedEduLevel : '學習階段'}</span></li>
+                        <li onClick={() => { setShowEduLevel(false); setShowSubjects(!showSubjects); setShowCounties(false); setShowSearchResult(false) }}><i className="icon-search-02"></i><span>{!!selectedSubject ? selectedSubject : '學習科目'}</span></li>
+                        <li onClick={() => { setShowEduLevel(false); setShowSubjects(false); setShowCounties(!showCounties); setShowSearchResult(false) }}><i className="icon-search-03"></i><span>{!!selectedCounty ? selectedCounty : '學習地區'}</span></li>
                     </ul>
-                    <div class="search-container">
-                        <input type="text" placeholder="請輸入.." name="search" />
-                        <button type="submit">搜 尋</button>
+                    <div className="search-container">
+                        <input type="text" placeholder="請輸入.." name="search" value={selectedKeyword} onChange={(e) => setSelectedKeyword(e.target.value)} />
+                        <button type="submit" onClick={onSearchClick}>搜 尋</button>
                     </div>
-                    <div class="search_datawrap">
-                        <div class="search_info" style={{ display: 'none' }}>
-                            <p>無關聯教案，請重新搜尋！</p>
-                        </div>
-                        <div class="search_info" style={{ display: 'none' }}>
-                            <button>台北市</button>
-                            <button>新北市</button>
-                            <button>基隆市</button>
-                            <button>桃園市</button>
-                            <button>新竹市</button>
-                            <button>新竹縣</button>
-                            <button>苗栗縣</button>
-                            <button>台中市</button>
-                            <button>彰化縣</button>
-                            <button>南投縣</button>
-                            <button>雲林縣</button>
-                            <button>嘉義市</button>
-                            <button>嘉義縣</button>
-                            <button>台南市</button>
-                            <button>高雄市</button>
-                            <button>屏東縣</button>
-                            <button>宜蘭縣</button>
-                            <button>花蓮縣</button>
-                            <button>台東縣</button>
-                            <button>澎湖縣</button>
-                            <button>金門縣</button>
-                            <button>連江縣</button>
+                    <div className="search_datawrap">
+                        <div className="search_info" style={{ display: (showEduLevel || showSubjects || showCounties || showSearchResult) ? 'block' : 'none' }}>
+                            {showEduLevel ? <button onClick={() => onSelectEdu('不分學段')}>不分學段</button> : null}
+                            {showEduLevel ? eduLevel.map((edu, index) => (<button key={index} onClick={() => onSelectEdu(edu)}>{edu}</button>)) : null}
+                            {(showSubjects && selectedEduLevel === '不分學段') ? <div style={{ textAlign: 'center' }}>預設選擇全部科目。</div> : null}
+                            {(showSubjects && !!selectedEduLevel && selectedEduLevel !== '不分學段') ? <button onClick={() => onSelectSubject('全部學科')}>全部學科</button> : null}
+                            {(showSubjects && !!selectedEduLevel) ? selectedSubjects.map((subject, index) => (<button key={index} onClick={() => onSelectSubject(subject)}>{subject}</button>)) :
+                                ((!showEduLevel && !showCounties && !showSearchResult) ? <div style={{ textAlign: 'center' }}>請先選擇學習階段。</div> : null)}
+                            {showCounties ? <button onClick={() => onSelectCounty('全台')}>全台</button> : null}
+                            {showCounties ? counties.map((county, index) => (<button key={index} onClick={() => onSelectCounty(county)}>{county}</button>)) : null}
+                            {showSearchResult ? (!!filteredPlans.length ?
+                                <p style={{ textAlign: 'center' }}>
+                                    {!!searchResult.selectedEduLevel.length ? `${searchResult.selectedEduLevel} > ` : null}
+                                    {!!searchResult.selectedSubject.length ? `${searchResult.selectedSubject} > ` : null}
+                                    {!!searchResult.selectedCounty.length ? `${searchResult.selectedCounty} > ` : null}
+                                    {!!searchResult.selectedKeyword.length ? `${searchResult.selectedKeyword} > ` : null}
+                                    共{filteredPlans.length}筆搜尋結果。
+                                </p> :
+                                <p style={{ textAlign: 'center' }}>無關聯教案，請重新搜尋！</p>) : null}
                         </div>
                     </div>
                 </div>
             </div>
-        </React.Fragment>
+        </React.Fragment >
     )
 }

@@ -8,12 +8,12 @@ export default function DetailPage() {
     const { planId } = useParams();
     return (
         <React.Fragment>
-            <section class="wrapper">
+            <section className="wrapper">
                 <DetailHeader />
                 <DetailPlan />
                 <Footer />
             </section>
-            <div class="topup"></div>
+            <div className="topup"></div>
         </React.Fragment>
     )
 }

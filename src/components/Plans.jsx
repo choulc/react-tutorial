@@ -2,18 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Plans(props) {
-    const { filteredPlan, currentPage, showPerPage } = props;
+    const { filteredPlans, currentPage, showPerPage } = props;
 
     return (
         <React.Fragment>
             <section>
-                <div class="ytdwrap">
-                    {filteredPlan.slice((currentPage - 1) * showPerPage, currentPage * showPerPage).map((plan, index) => (
-                        <div class="clearfix info_item">
+                <div className="ytdwrap">
+                    {filteredPlans.slice((currentPage - 1) * showPerPage, currentPage * showPerPage).map((plan, index) => (
+                        <div className="clearfix info_item" key={plan.youtubeLink}>
                             <Link to={`plan/${plan.id}`}>
                                 {/* <a href="casestudies.html"> */}
-                                <div class={`medal icon_${plan.badge}`}></div>
-                                <div class="video-shadow">
+                                <div className={`medal icon_${plan.badge}`}></div>
+                                <div className="video-shadow">
                                     <iframe
                                         width="400"
                                         height="200"
@@ -24,7 +24,7 @@ export default function Plans(props) {
                                         title={plan.youtubeLink}
                                     />
                                 </div>
-                                <div class="textContent">
+                                <div className="textContent">
                                     <h4>適合階段：{plan.grade}</h4>
                                     <h3>{plan.name}</h3>
                                     <p>科目：{plan.subject}</p>

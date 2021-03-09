@@ -7,16 +7,36 @@ import Plans from '../components/Plans';
 import SearchBar from '../components/SearchBar';
 
 export default function MasterPage(props) {
-    const { filteredPlan, currentPage, setCurrentPage, maxPage, setMaxPage, showPerPage } = props;
+    const { planItems, filteredPlans, setFilteredPlans, currentPage, setCurrentPage, maxPage, setMaxPage, showPerPage, eduLevel, subjects, counties, selectedEduLevel, setSelectedEduLevel, selectedSubjects, setSelectedSubjects, selectedSubject, setSelectedSubject, selectedCounty, setSelectedCounty, selectedKeyword, setSelectedKeyword, searchResult, setSearchResult } = props;
     return (
         <React.Fragment>
-            <section class="wrapper">
+            <section className="wrapper">
                 <Header />
                 <KeyVisual />
-                <section class="cw-main">
-                    <SearchBar />
+                <section className="cw-main">
+                    <SearchBar
+                        planItems={planItems}
+                        filteredPlans={filteredPlans}
+                        setFilteredPlans={setFilteredPlans}
+                        setCurrentPage={setCurrentPage}
+                        eduLevel={eduLevel}
+                        subjects={subjects}
+                        counties={counties}
+                        selectedEduLevel={selectedEduLevel}
+                        setSelectedEduLevel={setSelectedEduLevel}
+                        selectedSubjects={selectedSubjects}
+                        setSelectedSubjects={setSelectedSubjects}
+                        selectedSubject={selectedSubject}
+                        setSelectedSubject={setSelectedSubject}
+                        selectedCounty={selectedCounty}
+                        setSelectedCounty={setSelectedCounty}
+                        selectedKeyword={selectedKeyword}
+                        setSelectedKeyword={setSelectedKeyword}
+                        searchResult={searchResult}
+                        setSearchResult={setSearchResult}
+                    />
                     <Plans
-                        filteredPlan={filteredPlan}
+                        filteredPlans={filteredPlans}
                         currentPage={currentPage}
                         showPerPage={showPerPage}
                     />
@@ -24,11 +44,14 @@ export default function MasterPage(props) {
                         currentPage={currentPage}
                         setCurrentPage={setCurrentPage}
                         maxPage={maxPage}
+                        setMaxPage={setMaxPage}
+                        showPerPage={showPerPage}
+                        filteredPlans={filteredPlans}
                     />
                 </section>
                 <Footer />
             </section>
-            <div class="topup"></div>
+            <div className="topup"></div>
         </React.Fragment>
     )
 }

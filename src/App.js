@@ -15,32 +15,81 @@ import axios from 'axios';
 function App() {
 
   const [planItems, setPlanItems] = useState([]);
-  const [filteredPlan, setFilteredPlan] = useState([]);
+  const [filteredPlans, setFilteredPlans] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [maxPage, setMaxPage] = useState(1);
   const [showPerPage, setShowPerPage] = useState(9);
+
+  const [eduLevel, setEduLevel] = useState([]);
+  const [subjects, setSubjects] = useState({});
+  const [counties, setCounties] = useState([]);
+
+  const [selectedEduLevel, setSelectedEduLevel] = useState('');
+  const [selectedSubjects, setSelectedSubjects] = useState([]);
+  const [selectedSubject, setSelectedSubject] = useState('');
+  const [selectedCounty, setSelectedCounty] = useState('');
+  const [selectedKeyword, setSelectedKeyword] = useState('');
+  const [searchResult, setSearchResult] = useState({ selectedEduLevel, selectedSubject, selectedCounty, selectedKeyword });
 
   useEffect(() => {
     const getPlans = async () => {
       const result = await axios.get('/lesson-plans.json');
       setPlanItems(result.data);
-      setFilteredPlan(result.data);
+      setFilteredPlans(result.data);
       setMaxPage(Math.ceil(result.data.length / showPerPage));
     }
+
+    const getEdu = async () => {
+      const result = await axios.get('/education-levels.json');
+      setEduLevel(result.data);
+    }
+
+    const getSubjects = async () => {
+      const result = await axios.get('/subjects.json');
+      setSubjects(result.data);
+    }
+
+    const getCounties = async () => {
+      const result = await axios.get('/counties.json');
+      setCounties(result.data);
+    }
+
     getPlans();
-  }, [])
+    getEdu();
+    getSubjects();
+    getCounties();
+  }, [showPerPage])
+
+
 
   return (
     <Router>
       <Switch>
         <Route path="/" exact>
           <MasterPage
-            filteredPlan={filteredPlan}
+            planItems={planItems}
+            filteredPlans={filteredPlans}
+            setFilteredPlans={setFilteredPlans}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             maxPage={maxPage}
             setMaxPage={setMaxPage}
             showPerPage={showPerPage}
+            eduLevel={eduLevel}
+            subjects={subjects}
+            counties={counties}
+            selectedEduLevel={selectedEduLevel}
+            setSelectedEduLevel={setSelectedEduLevel}
+            selectedSubjects={selectedSubjects}
+            setSelectedSubjects={setSelectedSubjects}
+            selectedSubject={selectedSubject}
+            setSelectedSubject={setSelectedSubject}
+            selectedCounty={selectedCounty}
+            setSelectedCounty={setSelectedCounty}
+            selectedKeyword={selectedKeyword}
+            setSelectedKeyword={setSelectedKeyword}
+            searchResult={searchResult}
+            setSearchResult={setSearchResult}
           />
         </Route>
         <Route path="/plan/:planId">
