@@ -1,26 +1,18 @@
 import React, { useEffect } from 'react';
-export default function Pagination(props) {
-    const { currentPage, setCurrentPage, maxPage, setMaxPage, showPerPage, filteredPlans } = props;
 
-    const onPageChange = (diff) => {
-        if (diff === 'previous') {
-            setCurrentPage(currentPage - 1);
-        } else if (diff === 'next') {
-            setCurrentPage(currentPage + 1);
-        }
-        window.scrollTo({ behavior: 'smooth', top: 600 });
-    }
+export default function Pagination(props) {
+    const { pages, filteredPlans, nextPage, previousPage, updateMaxPage } = props;
 
     useEffect(() => {
-        setMaxPage(Math.ceil(filteredPlans.length / showPerPage) === 0 ? 1 : Math.ceil(filteredPlans.length / showPerPage));
-    }, [filteredPlans, showPerPage, setMaxPage])
+        Math.ceil(filteredPlans.length / pages.showPerPage) === 0 ? updateMaxPage(1) : updateMaxPage(Math.ceil(filteredPlans.length / pages.showPerPage))
+    }, [filteredPlans, pages.showPerPage, updateMaxPage])
 
     return (
         <React.Fragment>
             <section className="clearfix Pagination">
-                <button className="Previous" onClick={currentPage > 1 ? () => { onPageChange('previous') } : null}></button>
-                <span>{currentPage}</span>/<span>{maxPage}</span>
-                <button className="Next" onClick={currentPage < maxPage ? () => { onPageChange('next') } : null}></button>
+                <button className="Previous" onClick={() => { previousPage(); window.scrollTo({ behavior: 'smooth', top: 600 }) }} ></button>
+                <span>{pages.currentPage}</span>/<span>{pages.maxPage}</span>
+                <button className="Next" onClick={() => { nextPage(); window.scrollTo({ behavior: 'smooth', top: 600 }) }} ></button>
             </section>
         </React.Fragment >
     )

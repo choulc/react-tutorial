@@ -3,10 +3,6 @@ import React from 'react';
 const DetailPlan = (props) => {
     const { plan } = props;
 
-    const getSummary = () => {
-        return { __html: plan.summary }
-    }
-
     return (
         <React.Fragment>
             <section className="cases-main m_10em">
@@ -44,6 +40,7 @@ const DetailPlan = (props) => {
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
+                        title={plan ? plan.youtubeLink : null}
                     ></iframe>
                 </div>
                 <div className="intro_text" dangerouslySetInnerHTML={{ __html: plan ? plan.summary : null }}>
