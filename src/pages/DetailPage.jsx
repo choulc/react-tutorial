@@ -3,9 +3,12 @@ import { useParams } from 'react-router-dom';
 import DetailHeader from '../components/DetailHeader';
 import DetailPlan from '../components/DetailPlan';
 import Footer from '../components/Footer';
+import { useSelector } from 'react-redux'
 
-export default function DetailPage(props) {
-    const { planLookupTable } = props;
+export default function DetailPage() {
+
+
+    const planLookupTable = useSelector(state => state.plans.planLookupTable)
     const { planId } = useParams();
     return (
         <React.Fragment>

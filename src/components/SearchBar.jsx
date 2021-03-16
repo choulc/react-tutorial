@@ -1,25 +1,28 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+import { selectFilteredPlans, updateFilteredPlans } from '../reducers/plansSlice';
+import { setCurrentPage } from '../reducers/pagesSlice';
+import {
+    updateSelectedEduLevel,
+    updateSelectedSubjects,
+    updateSelectedSubject,
+    updateSelectedCounty,
+    updateSelectedKeyword,
+    updateSearchResult,
+} from '../reducers/searchSlice'
 
-export default function SearchBar(props) {
+export default function SearchBar() {
 
-    const {
-        planItems,
-        filteredPlans,
-        search,
-        selectedEduLevel,
-        selectedSubjects,
-        selectedSubject,
-        selectedCounty,
-        searchResult,
-        setCurrentPage,
-        updateSelectedEduLevel,
-        updateSelectedSubjects,
-        updateSelectedSubject,
-        updateSelectedCounty,
-        updateSelectedKeyword,
-        updateSearchResult,
-        updateFilteredPlans,
-    } = props;
+    const dispatch = useDispatch();
+
+    const planItems = useSelector(state => state.plans.planItems);
+    const filteredPlans = useSelector(selectFilteredPlans);
+    const search = useSelector(state => state.search)
+    const selectedEduLevel = useSelector(state => state.search.selectedEduLevel);
+    const selectedSubjects = useSelector(state => state.search.selectedSubjects);
+    const selectedSubject = useSelector(state => state.search.selectedSubject);
+    const selectedCounty = useSelector(state => state.search.selectedCounty);
+    const searchResult = useSelector(state => state.search.searchResult)
 
     const [showEduLevel, setShowEduLevel] = useState(false);
     const [showSubjects, setShowSubjects] = useState(false);
@@ -31,8 +34,8 @@ export default function SearchBar(props) {
         setShowSubjects(false);
         setShowCounties(false);
         setShowSearchResult(false);
-        updateSelectedSubjects('');
-        updateSelectedCounty('');
+        dispatch(updateSelectedSubjects(''));
+        dispatch(updateSelectedCounty(''));
     }
 
     const onSubButtonClicked = () => {
@@ -54,18 +57,18 @@ export default function SearchBar(props) {
     let countyDisplay = !!selectedCounty ? selectedCounty : '學習地區';
 
     const onSelectEdu = (edu) => {
-        updateSelectedEduLevel(edu);
+        dispatch(updateSelectedEduLevel(edu));
         setShowEduLevel(false);
-        updateSelectedSubjects(edu === '高中職科目' ? search.subjects['高中職'] : (edu === '國中科目' ? search.subjects['國中'] : (edu === '不分學段' ? [] : search.subjects[edu])));
+        dispatch(updateSelectedSubjects(edu === '高中職科目' ? search.subjects['高中職'] : (edu === '國中科目' ? search.subjects['國中'] : (edu === '不分學段' ? [] : search.subjects[edu]))));
     }
 
     const onSelectSubject = (subject) => {
-        updateSelectedSubject(subject);
+        dispatch(updateSelectedSubject(subject));
         setShowSubjects(false);
     }
 
     const onSelectCounty = (county) => {
-        updateSelectedCounty(county);
+        dispatch(updateSelectedCounty(county));
         setShowCounties(false);
     }
 
@@ -95,7 +98,7 @@ export default function SearchBar(props) {
 
     const onSearchClick = () => {
         const tempPlans = [...planItems];
-        updateFilteredPlans(tempPlans
+        dispatch(updateFilteredPlans(tempPlans
             .filter(plan => plan.grade.includes(selectedEduLevel === '高中職科目' ? '高中職'
                 : (selectedEduLevel === '國中科目' ? '國中' : (selectedEduLevel === '不分學段' ? '' : selectedEduLevel))))
             .filter(plan => plan.subject.includes((selectedSubject === '全部學科') ? '' : selectedSubject))
@@ -105,13 +108,13 @@ export default function SearchBar(props) {
                 || plan.city.includes(selectedCounty === '臺中市' ? '台中市' : selectedCounty)
                 || plan.city.includes(selectedCounty === '全台' ? '' : selectedCounty))
             .filter(plan => Object.values(plan).join('').includes(search.selectedKeyword))
-        );
-        setCurrentPage(1);
+        ));
+        dispatch(setCurrentPage(1));
         setShowEduLevel(false);
         setShowSubjects(false);
         setShowCounties(false);
         setShowSearchResult(true);
-        updateSearchResult({ selectedEduLevel: selectedEduLevel, selectedSubject: selectedSubject, selectedCounty: selectedCounty, selectedKeyword: search.selectedKeyword });
+        dispatch(updateSearchResult({ selectedEduLevel: selectedEduLevel, selectedSubject: selectedSubject, selectedCounty: selectedCounty, selectedKeyword: search.selectedKeyword }));
     }
 
     let resultInfo = (

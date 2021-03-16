@@ -8,7 +8,7 @@ import {
   Route,
 } from "react-router-dom";
 import MasterPage from './pages/MasterPage';
-import DetailPage from './containers/DetailPageContainer';
+import DetailPage from './pages/DetailPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPlans } from './reducers/plansSlice';
 import { fetchCounties, fetchEdu, fetchSubjects } from './reducers/searchSlice';

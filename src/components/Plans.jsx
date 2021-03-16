@@ -1,8 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectFilteredPlans } from '../reducers/plansSlice';
 
-export default function Plans(props) {
-    const { filteredPlans, currentPage, showPerPage } = props;
+export default function Plans() {
+
+    const filteredPlans = useSelector(selectFilteredPlans);
+    const currentPage = useSelector(state => state.pages.currentPage)
+    const showPerPage = useSelector(state => state.pages.showPerPage)
+
     return (
         <React.Fragment>
             <section>

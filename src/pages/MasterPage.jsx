@@ -2,9 +2,9 @@ import React from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import KeyVisual from '../components/KeyVisual';
-import Pagination from '../containers/PaginationContainer';
-import Plans from '../containers/PlansContainer';
-import SearchBar from '../containers/SearchBarContainer';
+import Pagination from '../components/Pagination';
+import Plans from '../components/Plans';
+import SearchBar from '../components/SearchBar';
 
 export default function MasterPage() {
     return (

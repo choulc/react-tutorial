@@ -44,5 +44,6 @@ const plansSlice = createSlice({
 });
 
 export const { updateFilteredPlans } = plansSlice.actions;
+export const selectFilteredPlans = state => state.plans.filteredPlans
 
 export default plansSlice.reducer
