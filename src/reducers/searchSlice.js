@@ -20,17 +20,17 @@ const initalSearch = {
 }
 
 export const fetchEdu = createAsyncThunk('search/fetchEdu', async () => {
-    const result = await axios.get('../education-levels.json');
+    const result = await axios.get('education-levels.json');
     return result.data;
 })
 
 export const fetchSubjects = createAsyncThunk('search/fetchSubjects', async () => {
-    const result = await axios.get('../subjects.json');
+    const result = await axios.get('subjects.json');
     return result.data;
 })
 
 export const fetchCounties = createAsyncThunk('search/fetchCounties', async () => {
-    const result = await axios.get('../counties.json');
+    const result = await axios.get('counties.json');
     return result.data;
 })
 

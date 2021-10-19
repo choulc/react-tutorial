@@ -10,7 +10,7 @@ const initialPlans = {
 }
 
 export const fetchPlans = createAsyncThunk('plans/fetchPlans', async () => {
-    const result = await axios.get('../lesson-plans.json');
+    const result = await axios.get('lesson-plans.json');
     return result.data;
 })
 

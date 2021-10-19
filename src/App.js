@@ -37,7 +37,7 @@ function App() {
   }, [planStatus, eduStatus, subjectsStatus, countiesStatus, dispatch])
 
   return (
-    <Router>
+    <Router basename={"/react-tutorial"}>
       <Switch>
         <Route path="/" exact>
           <MasterPage />
